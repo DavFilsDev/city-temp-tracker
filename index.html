@@ -5,38 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Temperature Tracker</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h1 class="text-center mt-5">Météo</h1>
-                <div class="text-center">
-                    <span id="city">paris</span>
-                    <div id="temperature">
-                        <span id="temperature_label">
-                            xx.x
-                        </span> °C
-                    </div>
-                </div>
-            </div>
-            
+   <header class="sticky-header">
+      <h1 class="site-title">🌍 City Temperature Tracker</h1>
+    </header>
+
+
+
+  <main class="container py-4">
+    <section>
+      <h2 class="text-center section-title text-white">Popular Cities</h2>
+      <div id="popular-cities" class="row justify-content-center"></div>
+    </section>
+
+  <section class="text-center fade-in position-relative overflow-hidden animated-bg">
+  <!-- Animated bubbles background -->
+  <div class="floating-shapes"></div>
+
+  <h2 class="section-title text-white fw-bold">Weather in Selected City</h2>
+  <div id="selectedCityWeather" class="mb-4 selected-city-card mx-auto">
+    <h3 id="city" class="text-white">Paris</h3>
+    <p>
+      <strong class="text-white">Temperature:</strong>
+      <span id="temperature_label" class="text-white">--</span>
+      <span class="text-white">°C</span>
+    </p>
+    <p>
+      <strong class="text-white">Weather:</strong>
+      <span id="weather_description" class="text-white">--</span>
+    </p>
+    <p>
+      <strong class="text-white">Humidity:</strong>
+      <span id="humidity" class="text-white">--</span>
+      <span class="text-white">%</span>
+    </p>
+    <p>
+      <strong class="text-white">Wind Speed:</strong>
+      <span id="wind" class="text-white">--</span>
+      <span class="text-white">m/s</span>
+    </p>
+  </div>
+  <button id="change" class="modern-button">🔁 Change City</button>
+</section>
+
+
+
+  </main>
+
+   <footer class="text-white text-center py-4 border-top" id="footer">
+        <div class="container d-flex flex-column align-items-center justify-content-center">
+            <p class="mb-1 text-center">&copy; 2025 City Temperature Tracker - Made with ❤️ using Bootstrap, JS and OpenWeatherMap API</p>
+            <small class="text-center">
+                Made by <strong>David Fils</strong> |
+                <a href="https://github.com/DavFilsDev" target="_blank" class="text-black">GitHub</a>
+            </small>
         </div>
-        
-        <div class="row justify-content-center">  
-            <div class="col-md-8 text-center">
-                <div id="change" class="mt-2 text-center p-3 text-white font-weight-bold text-uppercase d-inline-block">
-                    Changer de ville
-                </div>
-            </div>
-        </div>
+    </footer>
+
+  <!-- 👇 Add your modal here, after footer -->
+<div id="cityModal" class="modal-overlay">
+  <div class="modal-content">
+    <h4>🔍 Enter City Name</h4>
+    <input type="text" id="cityInput" placeholder="e.g. Madrid" />
+    <div id="suggestedCities" class="suggestions-list">
+        <!-- Cities will be added here by JS -->
     </div>
+
+    <div class="modal-buttons">
+      <button id="confirmCity" class="modern-button">Confirm</button>
+      <button id="cancelCity" class="modern-button cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
 
     <script src="js/config.js"></script>
     <script src="js/main.js"></script>
     <!-- Bootstrap 5 JS (with Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY4C6+N+e8pS1rV0BzE+4Ulf2Oxid2VuLZgvlzZ8KK1R8+LkWc8xOXEj" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
