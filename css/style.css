@@ -1,19 +1,261 @@
-html, body {
-  background: #2980B9;
-  background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
-  background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
-  min-width: 400px;
+body {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
 }
 
-#ville {
-  text-transform: capitalize;
+header, footer {
+    padding: 1rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-#temperature {
-  font-size: 4em;
+.sticky-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 1rem 2rem;
+    transition: background-color 0.5s ease, padding 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#changer {
-  background: rgba(178, 223, 251, .3);
-  cursor: pointer;
+.site-title {
+  margin: 0;
+  font-weight: 700;
+  color: white;
+  font-size: 1.75rem;
+  font-family: inherit;
+}
+
+.sticky-header.scrolled {
+  background-color: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 1rem 2rem;
+}
+
+main {
+  margin-top: 80px; 
+}
+
+.city-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+
+.city-card:hover {
+    transform: scale(1.02);
+}
+
+.modern-button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 12px 24px;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: inline-block;    
+    margin: 1rem;
+}
+
+.modern-button:hover {
+  transform: scale(1.02);
+  filter: brightness(1.15);
+}
+
+/* animated background */
+.animated-bg {
+    position: relative;
+    z-index: 1;
+}
+
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.floating-shapes::before,
+.floating-shapes::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float 4s infinite ease-in-out;
+    background: radial-gradient(circle at center, #ffffff55, #ffffff00);
+}
+
+.floating-shapes::before {
+    width: 200px;
+    height: 200px;
+    left: 10%;
+    top: 20%;
+    animation-delay: 0s;
+}
+
+.floating-shapes::after {
+    width: 150px;
+    height: 150px;
+    right: 15%;
+    bottom: 25%;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-40px) scale(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+}
+
+
+/* input city */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(30, 30, 60, 0.4);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 1rem;
+    width: 100%;
+    max-width: 400px; 
+    text-align: center;
+    color: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+.modal-content h4 {
+    margin-bottom: 1rem;
+    color: #a64bf4; 
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+button.modern-button.cancel {
+    background: linear-gradient(to right, #444, #666);
+}
+
+#cityModal {
+    display: none;
+}
+
+.suggestions-list {
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.suggestions-list span {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.suggestions-list span:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Section title */
+.section-title {
+    font-size: 2.2rem;
+    font-family: 'Poppins', sans-serif; 
+    margin-bottom: 1.5rem;
+}
+
+/* Selected city weather box */
+.selected-city-card {
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 500px;
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    animation: borderGlow 4s infinite alternate;
+    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Text inside */
+.selected-city-card h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.selected-city-card p {
+    margin: 0.75rem 0;
+    line-height: 1.6;
+}
+
+/* Animation on border */
+@keyframes borderGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.9);
+  }
 }
